@@ -1,40 +1,12 @@
-# [nfs]
-# 3.87.73.238 ansible_ssh_user='ec2-user'
+[nfs]
+3.87.66.225 ansible_ssh_user='ec2-user'
 
-# [webservers]
-# 3.236.251.222 ansible_ssh_user='ec2-user'
-# 3.86.204.21 ansible_ssh_user='ec2-user'
+[webservers]
+54.242.148.149 ansible_ssh_user='ec2-user'
+54.145.120.218 ansible_ssh_user='ec2-user'
 
-# [db]
-# 3.95.168.3 ansible_ssh_user='ec2-user' 
+[db]
+44.202.229.121 ansible_ssh_user='ec2-user' 
 
-# [lb]
-# 44.201.136.83 ansible_ssh_user='ubuntu'
-
-all:
-  hosts:
-    nfs:
-      ansible_host: 3.87.73.238
-      ansible_user: ec2-user
-      ansible_ssh_private_key_file: 1-First-Project-DEVOPS-1.pem
-    webserver1:
-      ansible_host: 3.236.251.222
-      ansible_user: ec2-user
-      ansible_ssh_private_key_file: 1-First-Project-DEVOPS-1.pem
-    # Add other hosts similarly
-    webserver2:
-      ansible_host: 3.86.204.21 
-      ansible_user: ec2-user
-      ansible_ssh_private_key_file: 1-First-Project-DEVOPS-1.pem
-    db:
-      ansible_host: 3.95.168.3
-      ansible_user: ec2-user
-      ansible_ssh_private_key_file: 1-First-Project-DEVOPS-1.pem
-    # Add other hosts similarly
-    lb:
-      ansible_host: 44.201.136.83
-      ansible_user: ubuntu
-      ansible_ssh_private_key_file: 1-First-Project-DEVOPS-1.pem
-
-
-      ##3hsuichwuiebcofwenbfuo
+[lb]
+34.205.129.116 ansible_ssh_user='ubuntu'
