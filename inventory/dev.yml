@@ -1,12 +1,25 @@
-[nfs]
-44.201.90.105 ansible_ssh_user='ec2-user'
+# [nfs]
+# 44.201.90.105 ansible_ssh_user='ec2-user'
+
+# [webservers]
+# 54.224.176.45 ansible_ssh_user='ec2-user'
+# 52.205.139.17 ansible_ssh_user='ec2-user'
+
+# [dbserver]
+# 18.206.146.196 ansible_ssh_user='ec2-user' 
+
+# [lb]
+# 52.205.139.17 ansible_ssh_user='ec2-user'
 
 [webservers]
-54.224.176.45 ansible_ssh_user='ec2-user'
-52.205.139.17 ansible_ssh_user='ec2-user'
+54.224.176.45 ansible_ssh_user=awstgremoteweb ansible_ssh_private_key_file=/etc/ansible/remote-web.key
+52.205.139.17 ansible_ssh_user=awsfareedweb2 ansible_ssh_private_key_file=/etc/ansible/remote-web2.key
 
-[db]
-18.206.146.196 ansible_ssh_user='ec2-user' 
+[nfs]
+44.201.90.105 ansible_ssh_user=awsfareednfs ansible_ssh_private_key_file=/etc/ansible/remote-nfs.key
 
 [lb]
-52.205.139.17 ansible_ssh_user='ubuntu'
+34.227.116.26 ansible_ssh_user=awsfareedlb ansible_ssh_private_key_file=/etc/ansible/remote-lb.key
+
+[dbserver]
+18.206.146.196 ansible_ssh_user=awsfareed ansible_ssh_private_key_file=/etc/ansible/remote-db.key
