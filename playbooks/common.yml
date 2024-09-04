@@ -118,12 +118,6 @@
         name: mysql-server
         state: present
 
-    - name: Start MySQL on Amazon Linux
-      when: ansible_facts['distribution'] == 'Amazon'
-      service:
-        name: mysqld
-        state: started
-        enabled: yes
 
     - name: Install MySQL on Ubuntu
       when: ansible_facts['distribution'] == 'Ubuntu'
