@@ -21,7 +21,6 @@
   hosts: webservers
   remote_user: ec2-user
   become: yes
-  become_user: ec2-user
   tasks:
     - name: Install Apache on Amazon Linux
       when: ansible_facts['distribution'] == 'Amazon'
@@ -53,7 +52,6 @@
   hosts: nfs
   remote_user: ec2-user
   become: yes
-  become_user: ec2-user
   tasks:
     - name: Install NFS server on Amazon Linux
       when: ansible_facts['distribution'] == 'Amazon'
@@ -88,4 +86,68 @@
         state: present
 
     - name: Start NFS server on Ubuntu
-      when: ans
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      service:
+        name: nfs-kernel-server
+        state: started
+        enabled: yes
+
+    - name: Export NFS directory on Ubuntu
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      lineinfile:
+        path: /etc/exports
+        line: "/srv/nfs *(rw,sync,no_root_squash)"
+        create: yes
+
+    - name: Restart NFS server on Ubuntu
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      service:
+        name: nfs-kernel-server
+        state: restarted
+
+- name: Setup Database Server
+  hosts: db
+  remote_user: ec2-user
+  become: yes
+  tasks:
+    - name: Install MySQL on Amazon Linux
+      when: ansible_facts['distribution'] == 'Amazon'
+      yum:
+        name: mysql-server
+        state: present
+
+    - name: Start MySQL on Amazon Linux
+      when: ansible_facts['distribution'] == 'Amazon'
+      service:
+        name: mysqld
+        state: started
+        enabled: yes
+
+    - name: Install MySQL on Ubuntu
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      apt:
+        name: mysql-server
+        state: present
+
+    - name: Start MySQL on Ubuntu
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+- name: Setup Load Balancer
+  hosts: lb
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: Install HAProxy on Ubuntu
+      apt:
+        name: haproxy
+        state: present
+
+    - name: Start HAProxy on Ubuntu
+      service:
+        name: haproxy
+        state: started
+        enabled: yes
