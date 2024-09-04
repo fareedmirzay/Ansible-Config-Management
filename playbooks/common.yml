@@ -116,22 +116,7 @@
       when: ansible_facts['distribution'] == 'Amazon'
       yum:
         name: mysql-server
-        state: present
-
-
-    - name: Install MySQL on Ubuntu
-      when: ansible_facts['distribution'] == 'Ubuntu'
-      apt:
-        name: mysql-server
-        state: present
-
-    - name: Start MySQL on Ubuntu
-      when: ansible_facts['distribution'] == 'Ubuntu'
-      service:
-        name: mysql
-        state: started
-        enabled: yes
-
+        state: latest
 - name: Setup Load Balancer
   hosts: lb
   remote_user: ubuntu
