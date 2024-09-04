@@ -1,9 +1,10 @@
 ---
-- hosts: all
+- name: Ensure Python 3 is installed
+  hosts: all
   vars:
     ansible_python_interpreter: /usr/bin/python3.9
   tasks:
-    - name: Ensure Python 3 is installed
+    - name: Install Python 3
       apt:
         name: python3
         state: present
@@ -85,33 +86,5 @@
         name: haproxy
         state: started
         enabled: yes
-
-
-# ---
-# - name: update web, nfs and db servers
-#   hosts: webservers, nfs, db
-#   remote_user: ec2-user
-#   become: yes
-#   become_user: root
-#   tasks:
-#     - name: ensure wireshark is at the latest version
-#       yum:
-#         name: wireshark
-#         state: latest
-
-# - name: update LB server
-#   hosts: lb
-#   remote_user: ubuntu
-#   become: yes
-#   become_user: root
-#   tasks:
-#     - name: Update apt repo
-#       apt: 
-#         update_cache: yes
-
-#     - name: ensure wireshark is at the latest version
-#       apt:
-#         name: wireshark
-#         state: latest
 
         
