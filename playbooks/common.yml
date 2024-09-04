@@ -6,12 +6,14 @@
   tasks:
     - name: Install Python 3 on Amazon Linux
       when: ansible_facts['distribution'] == 'Amazon'
+      become: yes
       yum:
         name: python3
         state: present
 
     - name: Install Python 3 on Ubuntu
       when: ansible_facts['distribution'] == 'Ubuntu'
+      become: yes
       apt:
         name: python3
         state: present
