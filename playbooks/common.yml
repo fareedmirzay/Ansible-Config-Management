@@ -8,28 +8,107 @@
         name: python3
         state: present
       
-- name: update web, nfs and db servers
-  hosts: webservers, nfs, db
+# - name: update web, nfs and db servers
+#   hosts: webservers, nfs, db
+  # remote_user: ec2-user
+  # become: yes
+  # become_user: ec2-user
+#   tasks:
+#     - name: ensure wireshark is at the latest version
+#       yum:
+#         name: wireshark
+#         state: latest
+
+# - name: update LB server
+#   hosts: lb
+#   remote_user: ubuntu
+#   become: yes
+#   become_user: ubuntu
+#   tasks:
+#     - name: Update apt repo
+#       apt: 
+#         update_cache: yes
+
+#     - name: ensure wireshark is at the latest version
+#       apt:
+#         name: wireshark
+#         state: latest
+---
+- name: Setup Web Servers
+  hosts: webservers
   remote_user: ec2-user
   become: yes
-  become_user: root
+  become_user: ec2-user
   tasks:
-    - name: ensure wireshark is at the latest version
+    - name: Install Apache
       yum:
-        name: wireshark
-        state: latest
+        name: httpd
+        state: present
 
-- name: update LB server
+    - name: Start Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+- name: Setup NFS Server
+  hosts: nfs
+  remote_user: ec2-user
+  become: yes
+  become_user: ec2-user
+  tasks:
+    - name: Install NFS server
+      yum:
+        name: nfs-utils
+        state: present
+
+    - name: Start NFS server
+      service:
+        name: nfs-server
+        state: started
+        enabled: yes
+
+    - name: Export NFS directory
+      lineinfile:
+        path: /etc/exports
+        line: "/srv/nfs *(rw,sync,no_root_squash)"
+        create: yes
+
+    - name: Restart NFS server to apply exports
+      service:
+        name: nfs-server
+        state: restarted
+
+- name: Setup Database Server
+  hosts: db
+  remote_user: ec2-user
+  become: yes
+  become_user: ec2-user
+  tasks:
+    - name: Install MySQL
+      yum:
+        name: mysql-server
+        state: present
+
+    - name: Start MySQL
+      service:
+        name: mysqld
+        state: started
+        enabled: yes
+
+- name: Setup Load Balancer
   hosts: lb
   remote_user: ubuntu
   become: yes
-  become_user: root
+  become_user: ubuntu
   tasks:
-    - name: Update apt repo
-      apt: 
-        update_cache: yes
-
-    - name: ensure wireshark is at the latest version
+    - name: Install HAProxy
       apt:
-        name: wireshark
-        state: latest
+        name: haproxy
+        state: present
+
+    - name: Start HAProxy
+      service:
+        name: haproxy
+        state: started
+        enabled: yes
