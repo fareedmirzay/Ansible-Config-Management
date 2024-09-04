@@ -1,12 +1,13 @@
 [webservers]
-3.86.142.247 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
-52.91.28.32 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
+44.201.88.41 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
+44.204.27.54 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
 
 [db]
-3.87.141.160 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
+44.211.211.234 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
 
 [nfs]
-174.129.56.71 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
+18.204.212.621 ansible_ssh_user=ec2-user ansible_ssh_private_key_file=/etc/ansible/instances.keys
 
 [lb]
-44.203.171.231 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/etc/ansible/instances.keys
+54.234.132.192 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/etc/ansible/instances.keys
+
