@@ -1,4 +1,13 @@
 ---
+- hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.9
+  tasks:
+    - name: Ensure Python 3 is installed
+      apt:
+        name: python3
+        state: present
+      
 - name: update web, nfs and db servers
   hosts: webservers, nfs, db
   remote_user: ec2-user
@@ -24,5 +33,3 @@
       apt:
         name: wireshark
         state: latest
-
-      
