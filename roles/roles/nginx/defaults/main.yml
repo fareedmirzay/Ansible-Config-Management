@@ -88,7 +88,7 @@ nginx_upstreams:
   servers:
     - "3.84.42.156 weight=3"
     - "3.92.228.93 weight=3"
-    # - "srv3.example.com"
+
 
 nginx_log_format: |-
   '$remote_addr - $remote_user [$time_local] "$request" '
