@@ -70,7 +70,6 @@ load_balancer_is_required: false
 
 
 #webservers
-
 loadbalancer_name: "myapp1"
 web1: "3.84.42.156 weight=3"
 web2: "3.92.228.93 weight=3"
